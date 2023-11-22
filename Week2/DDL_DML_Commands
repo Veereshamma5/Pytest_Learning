@@ -1,0 +1,296 @@
+SQL:
+
+Categories:
+DDL (Create, Alter, Drop)
+DML (Insert, Update, Delete)
+DQL (SELECT)
+DCL (Grant, Revoke)
+TCL (Rollback)
+
+SQL Datatypes:
+Primarily classified into 7 categories:
+•	Exact numeric: bit, tinyint, smallint, int, bigint, decimal, numeric, money and smallmoney
+•	Approximate numeric: Read and float
+•	Date and time: date, DateTime, datetime2, datetimeoffset, smalldatetime, time
+•	Character strings:char, varchar, text
+•	Unicode character strings: Nchar, Nvarchar, Ntext
+•	Binary strings: Binary, image and varbinary
+•	Other data types: Cursor, hierarchyid, sql_variant, table, rowversion, uniqueidentifier, XML, Spatial and geography
+
+
+
+DDL  Set of SQL commands used to create, modify and delete database structure but not data.
+Create: table, index, view, procedure, function, trigger
+Alter
+Drop
+Truncate
+Comment
+Rename
+
+Index: Used to retrieve data from the database more quickly
+Views: To create a temporary/virtual table based on the result set of an SQL statement
+Procedures: Prepared SQL code that you can save, so the code can be reused multiple times with different parameters
+Functions: Used to perform operations on data or database objects
+Trigger: It is a database object that is associated with the table and automatically executes a set of SQL statements when a specified events occurs on that table
+
+
+•	DDL (data definition language) triggers – As expected, triggers of this type shall react to DDL commands like – CREATE, ALTER, and DROP
+•	DML (data manipulation language) triggers – We’ve already mentioned them, and they react to DML commands. These are – INSERT, UPDATE, and DELETE
+•	Logon triggers – The name says it all. This type reacts to LOGON events
+
+Create Procedure:
+CREATE PROCEDURE procedure_name
+AS
+sql_statement
+GO;
+
+EXEC procedure_name;
+
+CREATE PROCEDURE procedure_name
+AS
+Select * from students
+GO;
+
+EXECUTE procedure_name
+
+---
+Procedure with 1 parameter::
+CREATE PROCEDURE procedure_name @City nvarchar(30)
+AS
+Select * from students where City = @City
+GO;
+
+EXECUTE procedure_name @City = ‘London’
+
+-------
+Procedure with multiple parameters::
+CREATE PROCEDURE procedure_name @City nvaachar(30), @State nvarchar(30
+AS
+Select * from students where City = @City and State = @State
+GO;
+
+Execute procedure_name @City = ‘London’ and @State = ‘England’
+
+-----------------------------
+
+
+
+
+VIEW
+CREATE VIEW view_name as
+Select col1, col2
+from table_name
+Where condition
+
+CREATE VIEW view_name as
+Select col1, col2
+From table_name
+WHERE condition
+
+Update View:
+A view can be updated with the CREATE OR REPLACE VIEW statement.
+
+CREATE OR REPLACE view view_name as
+Select col1, col2, col3
+From table_name
+WHERE condition
+
+DROP view:
+DROP VIEW view_name
+
+------------
+DROP command in SQL removes the table form the database, DELETE command removes one or more records from the table, and TRUNCATE command removes all the rows from the existing table
+
+
+ALTER::
+ALTER -> add, delete or modify columns
+ALTER  add or drop various constraints
+
+ALTER table table_name
+RENAME old_column_name to new_column_name
+
+ALTER table table_name
+ADD column column_namex
+
+Example:
+Alter table student
+ADD column Email varchar(30)
+
+Alter_Modify:: (Used to change the datatype of the column)
+Alter table tablename
+MODIFY column column_name varchar(30)
+
+ALTER table RENAME column::
+ALTER table table_name
+RENAME column old_column_name as new_column_name
+
+
+---------------------------------------------------------------------------------
+DML COMMANDS:
+Insert, Update, DELTE, Call, Explain Call, Lock
+
+---
+UPDATE:
+UPDATE table_name SET col1=value1, col2 = value2 WHERE condition
+
+----
+DELETE
+DELETE FROM table_name WHERE condition
+SELECT SUB Query::
+
+SELECT * FROM Products
+WHERE price > (SELECT AVG(price) FROM Products);
+
+
+select * from student
+
+Update student set subject=NULL where id_number = '12'
+
+
+select concat(full_name,' *', subject) from student
+As FullName from EmpName
+
+Change column datatype in postgresSQL
+Alter table table_name
+Alter column column_name TYPE new_datatype
+
+FETCH TOP 3 records
+select * from student order by rank_number ASC limit 3
+
+
+JOINS:
+Inner Join: Exists in both table
+Left outer Join: Returns all records from Left table and matched records from right table
+Right Outer Join: Returns all records from Right table and matched records from left table
+Full Join: Returns all records from left and Right join
+
+Inner Join Syntax:
+Select columns
+From table1
+Inner Join table2
+ON table1.column_name = table2.column_name
+
+Left Outer Join:
+Select columns
+From table1
+Left JOIN table2
+ON table1.column_name=table2.column_name
+
+Right Outer Join:
+Select columns
+From table1
+Right JOIN table2
+ON table1.column_name = table2.column_name
+
+Full Join:
+Select columns
+From table1
+Full JOIN table2
+ON table1.column = tabl2.column
+
+SELF JOIN
+Select columns
+From table1, table2 WHERE condition
+
+
+Select
+From
+Where
+Order by
+Limit
+
+------------
+Creation of EmployeeDetails:
+create table EmployeeDetails(
+EmpId Int,
+FullName Varchar(20),
+ManagerId Int,
+DateOfJoining Date,
+City Varchar(30))
+
+
+Insert values
+Insert into EmployeeDetails values
+						   ('321', 'Walter White', 986, '2020-01-30', 'California'),
+						   ('876', 'Kuldeep Rana', 876, '2021-11-27', 'New Delhi')
+
+
+Select Query:
+select * from employeedetails
+
+
+Write an SQL query to fetch records that are present in one table but not in another table
+select employeedetails.empid,EmployeeSalary.empid  from employeedetails
+LEFT join EmployeeSalary ON
+employeedetails.empid = EmployeeSalary.empid
+
+Write an SQL query to fetch the EmpIds that are present in EmployeeDetails but not in EmployeeSalary
+
+select empid  from employeedetails
+where empid NOT IN
+(select empid from employeesalary)
+
+Write an SQL query to display both the EmpId and ManagerId together.
+select concat(empid,' ', managerid) as newid from EmployeeDetails
+
+Write a query to fetch only the first name(string before space) from the FullName column of the EmployeeDetails table.
+select substring (fullname, 1, position(' ' IN fullname)) from EmployeeDetails
+
+Write an SQL query to uppercase the name of the employee and lowercase the city values.
+select UPPER(fullname), lower(city) from EmployeeDetails
+
+Write an SQL query to find the count of the total occurrences of a particular character – ‘n’ in the FullName field.
+select fullname, length(fullname)-length(replace(fullname, 'n', '' )) as replace_n from EmployeeDetails
+
+Write an SQL query to update the employee names by removing leading and trailing spaces.
+select rtrim(ltrim(fullname)) from EmployeeDetails
+
+Fetch all the employees who are not working on any project.
+select * from EmployeeSalary where project IS null
+
+Write an SQL query to find the current date-time.
+Select now()
+
+Write an SQL query to fetch all the Employee details from the EmployeeDetails table who joined in the Year 2020.
+select * from EmployeeDetails where dateofjoining between '2020-01-01' and '2020-12-31'
+
+Write an SQL query to fetch all employee records from the EmployeeDetails table who have a salary record in the EmployeeSalary table.
+SELECT * FROM EmployeeDetails where empid in
+(SELECT empid FROM EmployeeSalary  )
+
+SELECT * FROM EmployeeDetails E WHERE EXISTS (SELECT * FROM EmployeeSalary S WHERE  E.EmpId = S.EmpId);
+
+Write an SQL query to fetch the project-wise count of employees sorted by project’s count in descending order.
+select project, count(empid) empprojectcount from EmployeeSalary group by project order by empprojectcount asc
+
+
+Write an SQL query to fetch only even rows from the table
+select * from
+(SELECT *, Row_Number() OVER(order by project) AS RowNumber
+    FROM EmployeeSalary) E
+where E.rownumber % 2 = 0
+
+
+Write an SQL query to create a new table with data and structure copied from another table.
+CREATE TABLE NewTable
+AS TABLE EmployeeSalary;
+
+Write an SQL query to create an empty table with the same structure as some other table.
+CREATE TABLE new_table_name AS
+SELECT * FROM EmployeeDetails WHERE 1=0
+
+Write an SQL query to fetch top n records
+SELECT * FROM EmployeeDetails ORDER BY MANAGERID limit 2
+
+Fetch 2nd highest salary using limit:
+SELECT * FROM employeesalary order by salary DESC offset 1 limit 1
+
+Fetch 4th highest salary without using limit::
+SELECT Salary
+FROM EmployeeSalary Emp1
+WHERE 3 = (
+                SELECT COUNT( DISTINCT ( Emp2.Salary ) )
+                FROM EmployeeSalary Emp2
+                WHERE Emp2.Salary > Emp1.Salary
+            )
+
