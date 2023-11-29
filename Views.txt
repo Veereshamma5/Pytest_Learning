@@ -1,0 +1,66 @@
+CREATE VIEW myview AS
+    SELECT name, temp_lo, temp_hi, prcp, date, location
+        FROM weather, cities
+        WHERE city = name;
+
+SELECT * FROM myview;
+
+DROP VIEW view_name;
+
+===========
+Performing DML Operations on a view:
+DML operations can be performed upon a table through view.
+Rules to Follow:
+-->  A Row can be removed from a view unless it contains:
+Group Function
+A Group by Clause
+The Rownum Pesudo column
+The Distinct key word
+The columns defined by expressions
+-->  Data can be added through a view, unless it contains any of the above rules and there does not exist not null columns, and without default value.
+Ex:
+Create view InsertDept(DeptId, DeptName, Place)
+            As Select Deptno, Dname, Loc From Dept;
+Inserting Data Into Dept Table Using The InsertDept View:
+Ex:
+Insert into InsertDept(DeptID, DeptName, Place) Values(50, ’ADMINISTRATION’, ’DELHI’); 
+Updating Data in Dept Table The InsertDept View:
+Ex:
+Update InsertDept Set place = ’MUMBAI’ where DeptID = 50;
+Deleting Data From Dept Table Using the InsertDept View:
+Ex:
+Delete From InsertDept where DeptID = 50;
+-->  Many times these transactions look consistent but it is not true, hence care should be taken when implementing them.
+Using with Check Option Clause:
+-->  To ensure that DML on the view stays within the domain of the view we use the with check option clause.
+-->  Views make it possible to perform referential integrity checks.
+-->  Using views we can enforce constraints at database level.
+-->  Using Views we can protect the data integrity, but the use is very limited.
+-->  With Check option clause specifies that inserts, & updates performed through the view are not allowed to create rows that the view cannot select.
+-->  Views allow integrity constraints and data validation checks to be enforced on data being inserted or updated.
+Ex:
+Create or Replace view EDept30
+            As Select * From Emp where Deptno = 30
+            WITH Check option constraint EDept30ChkView;
+Create or Replace view Emanage
+            As Select * From Emp where Job = ‘MANAGER’
+            WITH Check option constraint EmangerView; 
+
+Applying With Read Only Option:
+-->  By adding with read only we can ensure that no DML operations are executed through view.
+-->  An Attempt to perform a DML operations result in oracle server error.
+Ex:
+Create or Replace view EDeptRead ( EmpID, Name, Designation )
+            As Select Empno, Ename, Job From Emp where Deptno = 20
+            WITH Read Only;
+View Constraint:
+-->  In practically oracle does not enforce view constraints, but operations on views are subject to the integrity constraints defined on the underlying base tables.
+-->  Constraints on views can be enforced through constraints on base tables.
+Restrictions on View constraints:
+-->  The view constraints are subset of table constraints.
+-->  Only UNIQUE, Primary key and FOREIGN key constraints can be specified on views.
+-->  The check constraint is imposed using WITH Check Option.
+-->  As view is a logical table the constraints on view are not highly considered in practice.
+
+-->  The view constraints are adopted for maintenance easiness.
+==================
