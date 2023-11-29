@@ -1,0 +1,21 @@
+Part 1: Data Query Language (DQL)
+Question 1: Retrieve Information
+Retrieve the names and ages of all students from the "Students" table.
+
+Find the courses along with their credit hours from the "Courses" table.
+
+Get the unique department names from the "Departments" table.
+=============================
+
+1. select concat(firstname, ' ', lastname) as Fullname, gender from students
+2. select coursename, credits from Courses
+3. select coursename, credits from Courses
+
+####################
+Question 2: Filtering and Sorting
+Retrieve the names of female students who are older than 20.
+
+Find the courses with more than 3 credit hours, sorted by the course name.
+============
+select concat(firstname, ' ', lastname) as StudentName from students where gender='Female' and age>20
+concat(firstname, ' ', lastname) as Fullname

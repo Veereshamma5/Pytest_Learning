@@ -1,0 +1,36 @@
+Part 3: Views
+Question 5: Create Views
+Create a view named "StudentDetails" that includes the student's name, age, gender, and department.
+
+Create a view named "EnrollmentDetails" that includes the student's name, course name, and grade.
+=====================
+
+CREATE VIEW StudentDetails AS
+select s.firstname, s.age, s.gender, d.departmentname
+FROM students s
+join departments d
+on S.Departmentid = d.departmentid
+
+
+CREATE VIEW EnrollmentDetails AS
+select s.firstname, c.coursename, s.grade
+FROM students s
+JOIN department d
+ON s.departmentid=d.departmentid
+JOIN courses c
+ON d.departmentid = c.departmentid
+
+
+===============================
+Question 6: Query Views
+Retrieve information from the "StudentDetails" view.
+
+Get details from the "EnrollmentDetails" view. (Fetch records who are enrolled in multiple couses)
+==========
+select * from StudentDetails
+
+select firstname,
+count(distinct coursename)as enrolled
+from EnrollmentDetails
+group by firstname
+Having count(distinct coursename)>1
