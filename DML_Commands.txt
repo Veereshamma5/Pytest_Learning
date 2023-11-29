@@ -1,0 +1,76 @@
+Question 5: Data Insertion
+Insert five students into the "Students" table with various details.
+Insert several courses into the "Courses" table.
+======================================================
+
+insert into students values (1, 'Charan', 'Chedde','001', 'Male' ),
+(2, 'Srithan', 'Chowdary','002', 'Male'),
+(3, 'Bhavya', 'Banda', '003', 'Female'),
+(4, 'Kushi', 'Kumar', '002', 'Male'),
+(5, 'Sohan', 'K', '004', 'Male')
+
+
+...............................
+insert into departments values('001', 'CSE'), ('002', 'ECE'), ('003', 'IT')
+
+insert into courses values (1, 'Database', '001', 10),
+(2, 'Python', '002', 5),
+(3, 'Performance Testing', '003', 9)
+--add as many details as you want
+
+==============================================
+Question 6: Data Retrieval
+Retrieve the names of all students along with the courses they are enrolled in.
+Find the average grade of each student.
+List the departments and the number of students enrolled in each department.
+================================================
+
+select concat( students.firstname, ' ', students.lastname) as Full_name, Courses.coursename as course_name from Students
+JOIN enrollments
+ON students.studentid = enrollments.studentid
+JOIN Courses
+ON enrollments.courseid = courses.courseid
+
+----
+select concat( students.firstname, ' ', students.lastname) as Student_fullname, AVG(enrollments.grade) as AVG_Grade from students
+JOIN enrollments
+ON students.studentid = enrollments.studentid
+GROUP BY students.studentid
+
+---
+select  departments.departmentname, count(departments.departmentid) as students_enrolled_count from students
+JOIN departments
+ON  students.departmentid=departments.departmentid
+group by departments.departmentid
+
+
+=========
+Update statement with multiple conditions::
+
+UPDATE enrollments
+SET grade =
+    CASE
+        WHEN enrollmentid IN ('1','2','3') THEN 10
+        WHEN enrollmentid IN ('4','5') THEN 20
+        -- Add more conditions and corresponding values as needed
+        ELSE 33
+    END;
+
+
+=================
+Question 7: Data Modification
+Update the gender of a specific student in the "Students" table.
+Change the name of a course in the "Courses" table.
+=================
+
+Update Students SET gender= 'non-binary' WHERE studentid =1
+
+Update Courses SET coursename = 'HTML'
+
+===========================
+Question 8: Data Deletion
+Remove a department from the "Departments" table.
+Delete a specific student from the "Students" table.
+=========================
+DELETE FROM Departments where departmentname='CIVIL'
+DELETE from Students where studentid=1

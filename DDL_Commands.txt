@@ -1,0 +1,74 @@
+-- Create table Student with StudentId [PK]--------
+create table Students (StudentID INT PRIMARY KEY NOT NULL,
+					  FirstName VARCHAR(30),
+					  LastName VARCHAR(30),
+					  Age INT,
+					  DepartmentID VARCHAR NOT NULL)
+
+
+-- Create table Departments with DepartmentID [PK]--------
+
+create table Departments(DepartmentID VARCHAR PRIMARY KEY NOT NULL,DepartmentName VARCHAR)
+
+------ Create table Courses with CourseID [PK], DepartmentID [FK] -------------
+
+CREATE table Courses(CourseID INT PRIMARY KEY NOT NULL,CourseName VARCHAR(30),DepartmentID VARCHAR REFERENCES Departments(DepartmentID))
+
+------------ Create table Enrollments, with EnrollmentID [PK], StudentID [FK] --------------
+CREATE table Enrollments(EnrollmentID varchar primary key not null,StudentID INT REFERENCES Students(StudentID) )
+
+
+------------ ADD Columns courseid[FK], Grade in the already exisiting table -------------
+Alter table enrollments ADD courseid INT references courses(courseid)
+
+Alter table Enrollments ADD Grade VARCHAR (20)
+
+
+
+==============
+Question 2: Modify Table Structure
+Add a new column "Gender" to the "Students" table to store the gender of each student.
+Remove the "Age" column from the "Students" table.
+==============
+
+ALTER TABLE Students ADD COLUMN Gender VARCHAR(30)
+ALTER TABLE Student DROP COLUMN Age
+
+
+===================
+Question 3: Indexing
+Create an index on the "StudentID" column in the "Students" table.
+Create a unique constraint on the "DepartmentName" column in the "Departments" table.
+======================
+
+CREATE INDEX idx_students_studentid ON Students(StudentID)
+
+ALTER TABLE Departments
+ADD CONSTRAINT unique_department_name UNIQUE (DepartmentName);
+
+========
+Verify the created indexes in the database schema
+=====
+SELECT
+    tablename,
+    indexname,
+    indexdef
+FROM
+    pg_indexes
+WHERE
+    schemaname = 'public'
+ORDER BY
+    tablename,
+    indexname;
+
+
+===================
+4.
+Add a foreign key constraint to the "Enrollments" table, referencing the "Students" table on the "StudentID" column.
+Add a check constraint to the "Courses" table to ensure that the course credits are greater than 0.
+====================
+Alter table Enrollments
+ADD studentid INT references students(studentid)
+
+ALTER TABLE Courses
+ADD CONSTRAINTS CHK_CourseCredit CHECK (
