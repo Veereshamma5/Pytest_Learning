@@ -1,1 +1,8 @@
-from app.services.student_service import StudentService
+from app.services import student_service as StudentService
+
+__all__ = [
+    "StudentService"
+]
+
+
+

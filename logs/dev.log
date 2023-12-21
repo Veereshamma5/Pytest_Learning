@@ -1,0 +1,15 @@
+2023-12-21 01:26:13,647 | _internal | 187 | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-12-21 01:26:13,647 | _internal | 187 | INFO | [33mPress CTRL+C to quit[0m
+2023-12-21 01:26:13,647 | _internal | 187 | INFO |  * Restarting with stat
+2023-12-21 01:26:14,696 | _internal | 187 | WARNING |  * Debugger is active!
+2023-12-21 01:26:14,696 | _internal | 187 | INFO |  * Debugger PIN: 232-028-216
+2023-12-21 01:26:34,733 | _internal | 187 | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-12-21 01:26:34,742 | _internal | 187 | INFO | [33mPress CTRL+C to quit[0m
+2023-12-21 01:26:34,742 | _internal | 187 | INFO |  * Restarting with stat
+2023-12-21 01:26:35,731 | _internal | 187 | WARNING |  * Debugger is active!
+2023-12-21 01:26:35,738 | _internal | 187 | INFO |  * Debugger PIN: 232-028-216
+2023-12-21 01:26:47,006 | student | 20 | INFO | Create Student API called...
+2023-12-21 01:26:47,006 | student_service | 11 | INFO | Create student service called.......
+2023-12-21 01:26:47,132 | _internal | 187 | INFO | 127.0.0.1 - - [21/Dec/2023 06:56:47] "[35m[1mPOST /student/create HTTP/1.1[0m" 201 -

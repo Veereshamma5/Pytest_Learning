@@ -1,1 +1,9 @@
-from app.repository.student_repo import StudentRepo
+from app.repository import student_repo as StudentRepo
+
+__all__ = [
+    "StudentRepo"
+]
+
+
+
+
